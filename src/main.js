@@ -62,6 +62,8 @@ loader.load(
   (gltf) => { 
     // Called when the model is loaded
     const model = gltf.scene;
+    model.position.set(-.6, 0, 3.6)
+    model.scale.set(2, 2, 2)
     scene.add(model); // Add the model to your Three.js scene
   }, 
   (xhr) => { 
