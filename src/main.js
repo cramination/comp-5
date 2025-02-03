@@ -62,7 +62,7 @@ scene.add( cube );
 const loader = new GLTFLoader();
 
 loader.load(
-  '/assets/test-cube.gltf', 
+  './assets/Computer-case-compressed-2.gltf', 
   (gltf) => { 
     // Called when the model is loaded
     const model = gltf.scene;
