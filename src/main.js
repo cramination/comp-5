@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-
+//import test-cube.add.gltf  from  'public/test-cube.gltf';
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
@@ -62,7 +62,7 @@ scene.add( cube );
 const loader = new GLTFLoader();
 
 loader.load(
-  'src/assets/test-cube.gltf', 
+  '/assets/test-cube.gltf', 
   (gltf) => { 
     // Called when the model is loaded
     const model = gltf.scene;
