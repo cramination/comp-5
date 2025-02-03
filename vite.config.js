@@ -6,7 +6,7 @@ export default defineConfig({
     plugins: [
         gltf() 
       ],
-      assetsInclude: ['my-threejs-project/src/assets/test-cube.gltf'],
+      assetsInclude: ['public/assets/Computer-case-compressed-2.gltf'],
       base: "/comp-5/",
       server: {
 
