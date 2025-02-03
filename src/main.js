@@ -54,15 +54,11 @@ window.addEventListener('resize', onWindowResize);
 onWindowResize();
 
 
-const geometry = new THREE.BoxGeometry( 1, 1, 1 );
-const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-const cube = new THREE.Mesh( geometry, material );
-scene.add( cube );
 
 const loader = new GLTFLoader();
 
 loader.load(
-  './assets/Computer-case-compressed-2.gltf', 
+  './assets/Computer-case-compressed.gltf', 
   (gltf) => { 
     // Called when the model is loaded
     const model = gltf.scene;
@@ -82,8 +78,6 @@ loader.load(
 function animate() {
 
 
-  cube.rotation.x += 0.01;
-	cube.rotation.y += 0.01;
 	controls.update();
 	renderer.render( scene, camera );
 

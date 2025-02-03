@@ -6,7 +6,7 @@ export default defineConfig({
     plugins: [
         gltf() 
       ],
-      assetsInclude: ['public/assets/Computer-case-compressed-2.gltf'],
+      assetsInclude: ['public/assets/Computer-case-compressed.gltf'],
       base: "/comp-5/",
       server: {
 
