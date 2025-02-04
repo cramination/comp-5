@@ -6,7 +6,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
-const light = new THREE.AmbientLight( 0x404040, 25 ); // soft white light
+const light = new THREE.AmbientLight( 0x404040, 50 ); // soft white light
 scene.add( light );
 
 const light2 = new THREE.PointLight( 0xFFC0CB, 2, 100 );
