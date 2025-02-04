@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 //import test-cube.add.gltf  from  'public/test-cube.gltf';
 
 const scene = new THREE.Scene();
+scene.background = new THREE.Color((4, 4, 34) );
 const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
 
 const light = new THREE.AmbientLight( 0x404040, 50 ); // soft white light
