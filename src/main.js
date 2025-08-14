@@ -1,243 +1,170 @@
+
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-//import test-cube.add.gltf  from  'public/test-cube.gltf';
 
+// Scene setup
 const scene = new THREE.Scene();
-scene.background = new THREE.Color((4, 4, 34) );
-const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+scene.background = new THREE.Color(0x040422);
 
-const light = new THREE.AmbientLight( 0x404040, 50 ); // soft white light
-scene.add( light );
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.set(3, 0.5, 6);
 
-const light2 = new THREE.PointLight( 0xFFC0CB, 2, 100 );
-light2.position.set( -6.5, 0, 6 );
-scene.add( light2 );
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
 
-const light3 = new THREE.PointLight( 0xFFC0CB, 1.5, 100 );
-light3.position.set( 1, 1, 3);
-scene.add( light3 );
+// Lighting
+scene.add(new THREE.AmbientLight(0x404040, 50));
 
+const pointLight1 = new THREE.PointLight(0xFFC0CB, 2, 100);
+pointLight1.position.set(-6.5, 0, 6);
+scene.add(pointLight1);
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
-renderer.setAnimationLoop( animate );
-document.body.appendChild( renderer.domElement );
-const controls = new OrbitControls( camera, renderer.domElement );
+const pointLight2 = new THREE.PointLight(0xFFC0CB, 1.5, 100);
+pointLight2.position.set(1, 1, 3);
+scene.add(pointLight2);
 
-controls.target.set(1, .5, 3.6)
+// OrbitControls
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(1, 0.5, 3.6);
 controls.maxDistance = 4;
-controls.enablePan = false
-controls.minDistance = .5
+controls.minDistance = 0.5;
+controls.enablePan = false;
 
-camera.position.set(3, .5, 6)
 
 function onWindowResize() {
-  // Get the new window dimensions
-  const width = window.innerWidth;
-  const height = window.innerHeight;
-renderer.setSize( width, height );
-
-camera.aspect = width / height;
-
-camera.updateProjectionMatrix();
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
 }
-
-window.addEventListener('resize', onWindowResize);
-onWindowResize();controls.target.set(1, .5, 3.6)
-controls.maxDistance = 4;
-controls.enablePan = false
-controls.minDistance = .5
-
-camera.position.set(3, .5, 6)
-
 window.addEventListener('resize', onWindowResize);
 onWindowResize();
 
-// Objects
+// Video setup helper
+function setupVideo(id) {
+  const video = document.getElementById(id);
+  if (video) {
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.autoplay = true;
 
-const video =  document.getElementById("film");
-const video3 =  document.getElementById("film3");
-const video4 =  document.getElementById("film4");
-const video5 =  document.getElementById("film5");
-const texture = new
-THREE.VideoTexture(video);
-const texture3 = new
-THREE.VideoTexture(video3);
-const texture4 = new
-THREE.VideoTexture(video4);
-const texture5 = new
-THREE.VideoTexture(video5);
+    // Some browsers require explicit play
+    video.play().catch((err) => {
+      console.warn(`Failed to autoplay video ${id}:`, err);
+    });
 
-
-const geometry = new THREE.CylinderGeometry( 1, 1, 1, 32 ); 
-  const videoTexture = new THREE.VideoTexture(video);
-  const videoMaterial =  new THREE.MeshBasicMaterial( {
-    map: videoTexture, 
-    side: THREE.FrontSide, 
-    toneMapped: false,
-    transparent: true,
-    opacity: 0.9
-  } );
-  const cylinder = new THREE.Mesh( geometry, videoMaterial ); 
-  scene.add( cylinder );
-  cylinder.rotation.x += Math.PI / 2;
-  cylinder.position.set (.978, .67, 3.564)
-  cylinder.scale.set(.115, .13, .115)
-  videoTexture.repeat.set(0.6, 0.6);
-  videoTexture.offset.set(0.18, 0.18);
-
- 
-  const geometry2 = new THREE.CylinderGeometry( 1, 1, 1, 32 ); 
-  const videoTexture2 = new THREE.VideoTexture(video3);
-  const videoMaterial2 =  new THREE.MeshBasicMaterial( {
-    map: videoTexture2,
-    side: THREE.FrontSide, 
-    toneMapped: false,
-    transparent: true,
-    opacity: 0.3 
-  } );
-  const cylinder2 = new THREE.Mesh( geometry2, videoMaterial2 ); 
-  scene.add( cylinder2 );
-  cylinder2.rotation.x += Math.PI / 2;
-  cylinder2.rotation.z += Math.PI / 2;
-  cylinder2.position.set (.607, .695, 3.72)
-  cylinder2.scale.set(.16, .07, .16)
-
-
-  const geometry3 = new THREE.CylinderGeometry( 1, 1, 1, 32 ); 
-  const videoTexture3 = new THREE.VideoTexture(video3);
-  const videoMaterial3 =  new THREE.MeshBasicMaterial( {
-    map: videoTexture3, 
-    side: THREE.FrontSide, 
-    toneMapped: false,
-    transparent: true,
-    opacity: 0.5
-  } );
-  const cylinder3 = new THREE.Mesh( geometry3, videoMaterial3 ); 
-  scene.add( cylinder3 );
-  cylinder3.rotation.x += Math.PI / 2;
-  cylinder3.rotation.z += Math.PI / 2;
-  cylinder3.position.set (1.71, .73, 3.72)
-  cylinder3.scale.set(.16, .07, .16)
-
-
-  const geometry4 = new THREE.CylinderGeometry( 1, 1, 1, 32 ); 
-  const videoTexture4 = new THREE.VideoTexture(video3);
-  const videoMaterial4 =  new THREE.MeshBasicMaterial( {
-    map: videoTexture4, 
-    side: THREE.FrontSide, 
-    toneMapped: false,
-    transparent: true,
-    opacity: 0.5
-  } );
-  const cylinder4 = new THREE.Mesh( geometry4, videoMaterial4 ); 
-  scene.add( cylinder4 );
-  cylinder4.rotation.x += Math.PI / 2;
-  cylinder4.rotation.z += Math.PI / 2;
-  cylinder4.position.set (1.71, .4, 3.72)
-  cylinder4.scale.set(.16, .07, .16)
-  
-
-  const geometry5 = new THREE.BoxGeometry( 1, 1, 1 ); 
-  const videoTexture10 = new THREE.VideoTexture(video5);
-  const videoTexture11 = new THREE.VideoTexture(video4);
-  const material5 = [
-    new THREE.MeshBasicMaterial( {
-      map: videoTexture10, side: THREE.DoubleSide, toneMapped: false
-    } ),
-    new THREE.MeshBasicMaterial( {
-      map: videoTexture10, side: THREE.DoubleSide, toneMapped: false
-    } ),
-    new THREE.MeshBasicMaterial( {
-      map: videoTexture11, side: THREE.DoubleSide, toneMapped: false
-    } ),
-    new THREE.MeshBasicMaterial( {
-      map: videoTexture11, side: THREE.DoubleSide, toneMapped: false
-    } ),
-    new THREE.MeshBasicMaterial( {
-      map: videoTexture10, side: THREE.DoubleSide, toneMapped: false
-    } ),
-    new THREE.MeshBasicMaterial( {
-      map: videoTexture10, side: THREE.DoubleSide, toneMapped: false
-    } ),
-  ];
-  const cube = new THREE.Mesh( geometry5, material5 ); 
-  cube.position.set (1.203, .69, 3.465)
-  cube.scale.set(.029, .35, .029)
-  videoTexture10.repeat.set(0.6, 0.6);
-  scene.add( cube );
-
-
-
-  const geometry6 = new THREE.BoxGeometry( 1, 1, 1 ); 
-  const videoTexture7 = new THREE.VideoTexture(video5);
-  const videoTexture9 = new THREE.VideoTexture(video4);
-
-  const material6 = [
-    new THREE.MeshBasicMaterial( {
-      map: videoTexture7, side: THREE.DoubleSide, toneMapped: false
-    } ),
-    new THREE.MeshBasicMaterial( {
-      map: videoTexture7, side: THREE.DoubleSide, toneMapped: false
-    } ),
-    new THREE.MeshBasicMaterial( {
-      map: videoTexture9, side: THREE.DoubleSide, toneMapped: false
-    } ),
-    new THREE.MeshBasicMaterial( {
-      map: videoTexture9, side: THREE.DoubleSide, toneMapped: false
-    } ),
-    new THREE.MeshBasicMaterial( {
-      map: videoTexture7, side: THREE.DoubleSide, toneMapped: false
-    } ),
-    new THREE.MeshBasicMaterial( {
-      map: videoTexture7, side: THREE.DoubleSide, toneMapped: false
-    } ),
-  ];
-  const cube2 = new THREE.Mesh( geometry6, material6 );
-  cube2.position.set (1.262, .69, 3.465)
-  cube2.scale.set(.029, .35, .029)
-  videoTexture7.repeat.set(0.6, 0.6);
-  videoTexture7.offset.set(0.52, 0.52);
-  scene.add( cube2 );
-
-  
-
-  const geometry7 = new THREE.PlaneGeometry( 1, 1, );
-  const videoTexture8 = new THREE.VideoTexture(video5);
-  const material7 = new THREE.MeshBasicMaterial( {map: videoTexture8, side: THREE.DoubleSide, toneMapped: false} );
-  const plane = new THREE.Mesh( geometry7, material7 );
-  plane.position.set (1.366, .219, 3.372)
-  plane.scale.set(.03, .205, .02)
-  scene.add( plane );
-
-const loader = new GLTFLoader();
-
-loader.load(
-  './assets/Computer-case-compressed.gltf', 
-  (gltf) => { 
-    // Called when the model is loaded
-    const model = gltf.scene;
-    model.position.set(-.6, 0, 3.6)
-    model.scale.set(2, 2, 2)
-    scene.add(model); // Add the model to your Three.js scene
-  }, 
-  (xhr) => { 
-    // Called while the model is loading
-    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-  }, 
-  (error) => { 
-    // Called if there's an error loading the model
-    console.error('An error occurred:', error);
+    return new THREE.VideoTexture(video);
   }
+  return null;
+}
+
+// video textures
+const texture1 = setupVideo("film");
+const texture2 = setupVideo("film3");
+const texture3 = setupVideo("film4");
+const texture4 = setupVideo("film5");
+
+// Cylinder 1
+const cylinder1 = new THREE.Mesh(
+  new THREE.CylinderGeometry(1, 1, 1, 32),
+  new THREE.MeshBasicMaterial({
+    map: texture1,
+    side: THREE.FrontSide,
+    toneMapped: false,
+    transparent: true,
+    opacity: 0.9,
+  })
+);
+cylinder1.rotation.x = Math.PI / 2;
+cylinder1.position.set(0.978, 0.67, 3.564);
+cylinder1.scale.set(0.115, 0.13, 0.115);
+if (texture1) {
+  texture1.repeat.set(0.6, 0.6);
+  texture1.offset.set(0.18, 0.18);
+}
+scene.add(cylinder1);
+
+// Cylinder 2
+const cylinder2 = new THREE.Mesh(
+  new THREE.CylinderGeometry(1, 1, 1, 32),
+  new THREE.MeshBasicMaterial({
+    map: texture2,
+    side: THREE.FrontSide,
+    toneMapped: false,
+    transparent: true,
+    opacity: 0.3,
+  })
+);
+cylinder2.rotation.set(Math.PI / 2, 0, Math.PI / 2);
+cylinder2.position.set(0.607, 0.695, 3.72);
+cylinder2.scale.set(0.16, 0.07, 0.16);
+scene.add(cylinder2);
+
+// Cylinder 3 (duplicate of 2)
+const cylinder3 = cylinder2.clone();
+cylinder3.material = new THREE.MeshBasicMaterial({
+  map: texture2,
+  side: THREE.FrontSide,
+  toneMapped: false,
+  transparent: true,
+  opacity: 0.5,
+});
+cylinder3.position.set(1.71, 0.73, 3.72);
+scene.add(cylinder3);
+
+// Cylinder 4 (duplicate of 3)
+const cylinder4 = cylinder3.clone();
+cylinder4.position.set(1.71, 0.4, 3.72);
+scene.add(cylinder4);
+
+// Box 1
+const boxMaterials1 = [texture4, texture4, texture3, texture3, texture4, texture4].map(
+  tex => new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide, toneMapped: false })
+);
+const cube1 = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), boxMaterials1);
+cube1.position.set(1.203, 0.69, 3.465);
+cube1.scale.set(0.029, 0.35, 0.029);
+if (texture4) texture4.repeat.set(0.6, 0.6);
+scene.add(cube1);
+
+// Box 2
+const boxMaterials2 = [texture4, texture4, texture3, texture3, texture4, texture4].map(
+  tex => new THREE.MeshBasicMaterial({ map: tex, side: THREE.DoubleSide, toneMapped: false })
+);
+const cube2 = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), boxMaterials2);
+cube2.position.set(1.262, 0.69, 3.465);
+cube2.scale.set(0.029, 0.35, 0.029);
+if (texture4) texture4.offset.set(0.52, 0.52);
+scene.add(cube2);
+
+// Plane
+const plane = new THREE.Mesh(
+  new THREE.PlaneGeometry(1, 1),
+  new THREE.MeshBasicMaterial({ map: texture4, side: THREE.DoubleSide, toneMapped: false })
+);
+plane.position.set(1.366, 0.219, 3.372);
+plane.scale.set(0.03, 0.205, 0.02);
+scene.add(plane);
+
+// GLTF model
+const loader = new GLTFLoader();
+loader.load(
+  './assets/Computer-case-compressed.gltf',
+  (gltf) => {
+    const model = gltf.scene;
+    model.position.set(-0.6, 0, 3.6);
+    model.scale.set(2, 2, 2);
+    scene.add(model);
+  },
+  (xhr) => console.log(`${(xhr.loaded / xhr.total) * 100}% loaded`),
+  (error) => console.error('An error occurred:', error)
 );
 
-
+// Animation loop
 function animate() {
-
-
-	controls.update();
-	renderer.render( scene, camera );
-
+  controls.update();
+  renderer.render(scene, camera);
 }
-renderer.setAnimationLoop( animate );
+renderer.setAnimationLoop(animate);
